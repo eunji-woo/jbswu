@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+
+{% block title %}리터러슈 - Community1{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+{% load static %}
+
+<script>
+function alert_back(){
+     
+};
+</script>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Community 문제 Num.01</title>
+</head>
+<body>
+    <h1>Community 문제 Num.01</h1><br><hr>
+    <p style="font-size:30px">한 유명 카페에 올라온 글이다 여기에는 어떤 문제가 있을까요.</p><br>
+    
+    <div class="" style="text-align:center;">
+        <img src="{% static 'img/comm1.jpg' %}" alt="community" width="600" height="">
+        <img src="{% static 'img/comm1-1.jpg' %}" alt="community" width="600" height="">
+    </div>
+    <br><hr>
+    
+    {% if result == "정답입니다." %}
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">정답입니다.</h4><hr>
+        <p class="mb-0">새끼손가락을 보시면 원래 새끼손가락은 다른 손가락보다 원래 휘어 있습니다.<br>
+        평상시엔 몰랐지만 스마트폰을 받쳐 쓰다보니 괜히 휜것 같은 기분이 드는 겁니다.
+        - 경희대 병원 정형외과 정덕환 교수 -<br>
+        <a href="/main" class="alert-link">다른 문제 풀기</a></p>
+    </div>
+    
+    {% elif result == "다시 한 번 생각해보세요." %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">다시 한 번 생각해보세요.</h4><hr>
+        <p class="mb-0"><br>
+        <a href="{% url 'main:about' %}" class="alert-link">개념 다시 학습하기</a></p>
+    </div>
+    {% endif %}
+    
+     <form name="form" style="font-size:20px;" method="POST" action="{% url 'problem:community' number=1 %}">
+         {% csrf_token %}
+         <input type="submit" class="btn btn-primary" name="option" value="v1">&nbsp;이미지 출처 '유머사이트.com'은 사람들이 많이 이용하는 커뮤니티로 신뢰성이 높다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v2">&nbsp;커뮤니티에 해당 내용에 대한 더 많은 글이 없어 신뢰할 수 없다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v3">&nbsp;유머사이트.com'에는 실제 의사들도 가입되어 있는 사이트로 신뢰할 수 있다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v4">&nbsp;명확한 인과관계가 없고 출처가 유머사이트.com으로 신뢰할 수 없다.<br><br>
+    </form>    
+    
+</body>
+</html>
+
+{% else %}
+    <script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

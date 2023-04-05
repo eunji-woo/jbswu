@@ -1,0 +1,100 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - FAQ{% endblock %}
+{% block content %}
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>리터러슈</title>
+</head>
+    
+<body>
+   <style>
+  .answer {
+    display: none;
+    padding-bottom: 30px;
+  }
+  #faq-title {
+    font-size: 35px;
+  }
+  .faq-content {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .question {
+    font-size: 19px;
+    padding: 30px 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+  .question:hover {
+    color: #78c2ad;
+  }
+  [id$="-toggle"] {
+    margin-right: 15px;
+  }
+</style>
+
+<span id="faq-title">자주 묻는 질문(FAQ)</span>
+<div class="faq-content">
+  <button class="question" id="que-1"><span id="que-1-toggle">+</span><span>'리터러슈'는 어떤 페이지 인가요?</span></button>
+  <div class="answer" id="ans-1">리터러시에 대해 학습하며, 다양한 미디어를 접하면서 명확한 정보를 찾고, 평가하고, 조합하는 개인의 능력을 길러주는 사이트 입니다.</div>
+</div>
+<div class="faq-content">
+  <button class="question" id="que-2"><span id="que-2-toggle">+</span><span>리터러시가 무엇인가요?</span></button>
+  <div class="answer" id="ans-2">리터러시는 문자의 보급과 더불어 형성된 개념으로, 글을 읽고 쓸 줄 아는 '문해력'을 의미합니다.
+<br>또한, 디지털 리터러시는 기술과 도구사용능력(기술 리터러시), 코드 리터러시, 미디어 리터러시, 뉴스리터러시, 소셜미디어 리터러시 등을 포괄하는 개념입니다.
+</div>
+</div>
+<div class="faq-content">
+  <button class="question" id="que-3"><span id="que-3-toggle">+</span><span>안전한 인터넷 사용을 할 수 있도록 관련 사이트 추천해주세요</span></button>
+  <div class="answer" id="ans-3">인터넷 진흥원이 있습니다.
+    <p><a href="https://www.kisa.or.kr/main.jsp">https://www.kisa.or.kr/main.jsp</a></p>
+    한국정보보호학회가 있습니다. <p><a href="https://kiisc.or.kr/static/establish">https://kiisc.or.kr/static/establish</a></p>
+    리터러시 교육 관련 사이트로는 미디온, 한국언론진흥재단 미디어리터러시
+          <p><a href="https://dadoc.or.kr/">https://dadoc.or.kr/</a></p>
+          <p><a href="https://edu.kcmf.or.kr/main/index.jsp">https://edu.kcmf.or.kr/main/index.jsp</a></p>
+    </div>
+    
+</div>
+<div class="faq-content">
+  <button class="question" id="que-4"><span id="que-3-toggle">+</span><span>회원정보 수정이 가능한가요?</span></button>
+  <div class="answer" id="ans-4">페이지 오른쪽 상단에 admin-회원정보에서 수정 가능합니다.</div>
+</div>
+<div class="faq-content">
+  <button class="question" id="que-5"><span id="que-3-toggle">+</span><span>QnA답변은 어디서 볼 수 있나요?</span></button>
+  <div class="answer" id="ans-5">QnA질문 사항에 작성하셨던 메일로 회신해드립니다.</div>
+</div>
+<div class="faq-content">
+  <button class="question" id="que-6"><span id="que-3-toggle">+</span><span>QnA는 답변이 언제 회신되나요?</span></button>
+  <div class="answer" id="ans-6">보통 36시간 이내에 답변이 발송됩니다.</div>
+</div>
+<div class="faq-content">
+  <button class="question" id="que-7"><span id="que-3-toggle">+</span><span>문제에 대한 질문있어요</span></button>
+  <div class="answer" id="ans-7">QnA에 문제, 사이트 관련 질문 남겨주시면 답변해드립니다.</div>
+</div>
+<br><br><br><br>
+<script>
+  const items = document.querySelectorAll('.question');
+
+  function openCloseAnswer() {
+    const answerId = this.id.replace('que', 'ans');
+
+    if(document.getElementById(answerId).style.display === 'block') {
+      document.getElementById(answerId).style.display = 'none';
+      document.getElementById(this.id + '-toggle').textContent = '+';
+    } else {
+      document.getElementById(answerId).style.display = 'block';
+      document.getElementById(this.id + '-toggle').textContent = '-';
+    }
+  }
+
+  items.forEach(item => item.addEventListener('click', openCloseAnswer));
+</script>
+    
+    </body>
+</html>
+{% endblock %}

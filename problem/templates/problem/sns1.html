@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+{% block title %}리터러슈 - SNS1{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SNS</title>
+</head>
+<body>
+    <h1>SNS 문제 Num.01</h1><br><hr>
+    <p style="font-size:30px">SNS와 기사를 보고 어떤것이 문제인지 맞게 적혀있는 것을 골라주세요.</p><br>
+    <!-- 여기에 사진 추가 -->
+    <div class="" style="text-align:center;">
+        <img src="{% static 'img/sns1.jpg' %}" alt="sns" width="400" height="720">
+        &nbsp;&nbsp;&nbsp;
+        <img src="{% static 'img/sns1-1.jpg' %}" alt="snstrue">
+    </div>
+    <br><hr>
+    
+    {% if result == "정답입니다." %}
+    <div class="alert alert-dismissible alert-primary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">정답입니다.</h4><hr>
+        <p class="mb-0">개인적인 의견을 사실처럼 기재해서 막대한 피해를 보는 사람이 없도록 사용해야합니다.<br>
+        <a href="/main" class="alert-link" style="float:right;">다른 문제 풀기</a></p><br>
+    </div>
+    
+    {% elif result == "다시 한 번 생각해보세요." %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">다시 한 번 생각해보세요.</h4><hr>
+        <p class="mb-0">
+        <a href="{% url 'main:about'%}" class="alert-link" style="float:right;">개념 다시 학습하기</a></p><br>
+    </div>
+    {% endif %}
+
+    
+     <form name="form" style="font-size:20px;" method="POST" action="{% url 'problem:sns' number=1 %}">
+         {% csrf_token %}
+         <input type="submit" class="btn btn-primary" name="option" value="v1">&nbsp;&nbsp;팔로우 많은 유명 SNS의 말로 '소계딩'의 레시피 표절은 믿을 만한 사실이다.<br><br>
+         <input type="submit"  class="btn btn-primary"name="option" value="v2">&nbsp;&nbsp;기사는 SNS에 글을 게시한 pari-****의 인터뷰를 하지 않아 근거 없는 기사다.<br><br>
+         <input type="submit" class="btn btn-primary"name="option" value="v3">&nbsp;&nbsp;SNS에 사실과 다른 근거없는 개인적인 의견을 사실처럼 기재하여 문제가 된다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v4">&nbsp;&nbsp;민주주의 사회로 개인의 의견 모두 존종하여 SNS에 올라온 글들은 모두 신뢰 해도 된다.<br><br>
+    </form>
+
+    
+</body>
+</html>
+
+{% else %}
+    <script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

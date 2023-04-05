@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - Q&A 게시글 확인{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+{% if my_write.author.username == request.user.username %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>질문작성 확인하기</title>
+</head>
+    
+<body>
+    <h1>QnA게시판 | 질문 확인하기</h1>
+    <div style="font-size:20px;">
+    <br><hr>
+    <strong>제목 : </strong>{{my_write.title}}
+    <br><br>
+    <strong>내용 : </strong>{{my_write.contents}}
+    <br><br>
+    <strong>작성자 이메일 : </strong>{{my_write.email}}
+    <br><br>
+    {% if my_write.imgfile %}
+    <div><strong>파일</strong><br><img src="{{ my_write.imgfile.url }}"></div>
+    {% endif %}
+    {% if my_write.uploadedFile %}
+    <div><strong>파일</strong><br><a href="{{ my_write.uploadedFile.url }}">파일 다운로드</a></div>
+    {% endif %}
+    <br>
+    <strong>작성 시간 : </strong>{{my_write.updated_at}}
+    <br><br>  
+        
+{% else %}
+        
+<h2>
+    <center>
+        <br><br>
+         접근할 수 없는 글입니다.<br>
+        <a href="/">메인으로 가기</a>
+        <br><br><br><br>
+    </center>
+</h2>      
+        
+{% endif %}
+        
+    {% if user.is_superuser %}
+
+    <button type="button" class="btn btn-outline-primary"style="width:200px; height:50px;float: right; color:white;"><a href="{% url 'writepage' %}">목록 보기</a></button><br><br><br><br><hr><br><br>
+    
+    
+    {% endif %}
+</body>
+</html>
+{% endblock %}

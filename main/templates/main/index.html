@@ -1,0 +1,112 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - 문제 풀기{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<script>
+    function prog()
+    {
+        var value = [{{ user.profile.score1 }},{{ user.profile.score2 }},{{ user.profile.score3 }},{{ user.profile.score4 }},{{ user.profile.score5 }},{{ user.profile.score6 }},{{ user.profile.score7 }},{{ user.profile.score8 }},{{ user.profile.score9 }},{{ user.profile.score10 }},{{ user.profile.score11 }},{{ user.profile.score12 }}];
+        var value2 = value.filter(n => n === 1).length;
+        var value3 = value2*8.4;
+
+        var progr = document.getElementById('progress');
+
+        progr.innerHTML = '<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="'+value3+'" aria-valuemin="0" aria-valuemax="100" style="width: '+value3+'%;"></div>';
+    };
+</script>
+<br>
+<div class="progress" id="progress"> <!--8.4%-->
+</div>
+
+<table class="table table-hover">
+    <th></th><th></th><th scope="row" style="font-size: 30pt; text-align: center;">Literacy</th><th></th><th></th>
+    <tr>
+        <td style="width: 35%"></td>
+        {% if user.profile.score1 == 1 %} 
+        <td><a href="{% url 'problem:literacy' number=1 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:literacy' number=1 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score2 == 1 %} 
+        <td><a href="{% url 'problem:literacy' number=2 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:literacy' number=2 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score3 == 1 %} 
+        <td><a href="{% url 'problem:literacy' number=3 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:literacy' number=3 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        <td style="width: 35%"></td>
+    </tr>
+    
+    <th></th><th></th><th scope="row" style="font-size: 30pt; text-align: center;">Article</th><th></th><th></th>
+    <tr>
+        <td></td>
+        {% if user.profile.score4 == 1 %} 
+        <td><a href="{% url 'problem:article' number=1 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:article' number=1 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score5 == 1 %} 
+        <td><a href="{% url 'problem:article' number=2 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:article' number=2 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score6 == 1 %} 
+        <td><a href="{% url 'problem:article' number=3 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:article' number=3 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        <td></td>
+        
+    </tr>
+    
+    <th></th><th></th><th scope="row" style="font-size: 30pt; text-align: center;">Community</th><th></th><th></th>
+    <tr>
+        <td></td>
+        {% if user.profile.score7 == 1 %} 
+        <td><a href="{% url 'problem:community' number=1 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:community' number=1 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        
+        {% if user.profile.score8 == 1 %} 
+        <td><a href="{% url 'problem:community' number=2 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:community' number=2 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        
+        {% if user.profile.score9 == 1 %} 
+        <td><a href="{% url 'problem:community' number=3 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:community' number=3 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        <td></td>
+    </tr>
+    
+    <th></th><th></th><th scope="row" style="font-size: 30pt; text-align: center;">SNS</th><th></th><th></th>
+    <tr>
+        <td></td>
+        {% if user.profile.score10 == 1 %} 
+        <td><a href="{% url 'problem:sns' number=1 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:sns' number=1 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score11 == 1 %} 
+        <td><a href="{% url 'problem:sns' number=2 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:sns' number=2 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        {% if user.profile.score12 == 1 %} 
+        <td><a href="{% url 'problem:sns' number=3 %}"><img src="{% static 'main/img/swucream_prob.png' %}" style="width:200px"></a></td>
+        {% else %} 
+        <td><a href="{% url 'problem:sns' number=3 %}"><img src="{% static 'main/img/swucream_prob2.png' %}" style="width:200px"></a></td>
+        {% endif %}
+        <td></td>
+    </tr>
+</table>
+<script>prog();</script>
+{% endblock %}

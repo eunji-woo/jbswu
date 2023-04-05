@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - Q&A{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>질문버튼</title>
+    <style tyle="text/css"> a{text-decoration:none}</style>
+    <style>
+        .input-text{
+            border-color:#78c2a7;
+            border-radius:10px;
+            width:230px;
+            height:40px;
+        }
+        
+    </style>
+</head>
+<body>   
+    <div class="create">
+        <br><h1>QnA게시판 | 작성하기 버튼을 눌러주세요</h1>
+        '리터러슈'를 이용하며 궁금한점을 질문해 보세요
+    <div class="board-list-top">
+		<div class="board-tot-wrap">
+			<span class="tot-num">
+				<strong>Total : </strong>
+				<span>1</span>
+			</span>
+			<span class="pg-num">(<strong>1</strong> / <span>1</span> Page)</span>
+             <!-- 검색기능추가 -->
+            <form action="" method="get" style="text-align:right">
+              <input type="text" name="q" value="{{ q }}" style="margin: 0 auto; width:30%;" class="input-text" placeholder="제목을 통해 검색하실 수 있습니다.">
+              <input type="submit" value="검색" class="btn btn-primary" style="margin: 0; height:45px;">
+            </form>
+    </div>
+    
+    <hr>
+    {% if user.is_authenticated %}
+    <button type="button" class="btn btn-outline-primary"style="width:200px; height:50px;float: right;"><a href="{% url 'create' %}">질문 작성하기</a></button> 
+    {% else %}
+    <button type="button" class="btn btn-outline-primary"style="width:200px; height:50px;float: right;"><a href="{% url 'auth:login' %}">질문 작성하기</a></button> 
+    {% endif %}    
+        <h2>질문 목록</h2>
+    <div class="write-wrapper"><br>
+        {% for write in all_write %}
+        <table class="table table-hover">
+            <tr class="table-active">
+              <th scope="row"><a href="{% url 'detail' write.id %}">질문 | {{write.title}}</a></th>
+              <!-- <td style="width: 35%"></td> -->
+              <td style="width: 70%"></td>
+              
+                </tr>
+            <tr>
+            <td>{{write.author.username}}  | {{write.updated_at}}</td>
+            {% if write.author.username == user.username  %}
+            <td style="text-align: right;"><div class="wr-delete">
+                <a href="{% url 'delete' write.id %}">삭제하기</a>
+            </div></td>
+            {% endif %}
+            </tr>
+        </table>
+
+    {% endfor %}
+    </div>
+ 
+	<div  class="board-list-paging">
+        <div class='pagelist' style=" text-align: center;">
+            <a class='firstpage1'>
+                <span>[이전]</span></a>
+                <strong><span>1</span></strong>
+            <a class='lastpage1'><span>[다음]</span></a>
+            <br><br><br>
+        </div>
+        </div></div>
+</body>
+</html>
+{% endblock %}

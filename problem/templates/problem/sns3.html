@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+{% block title %}리터러슈 - SNS3{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SNS</title>
+</head>
+<body>
+    <h1>SNS 문제 Num.03</h1><br><hr>
+    <p style="font-size:30px">한 SNS에 올리온 글입니다. 문제로 판단되는 것을 골라주세요.</p><br>
+
+    <div class="" style="text-align:center;">
+        <img src="{% static 'img/sns3.jpg' %}" alt="sns" width="" height="">
+        &nbsp;&nbsp;&nbsp;
+
+    </div>
+    <br><hr>
+    
+    {% if result == "정답입니다." %}
+    <div class="alert alert-dismissible alert-primary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">정답입니다.</h4><hr>
+        <p class="mb-0">커뮤니티 글을 맹신하지 않고 사실관계를 꼭 따져봐야합니다.<br>
+        <a href="/main" class="alert-link" style="float:right;">다른 문제 풀기</a></p><hr>
+    </div>
+    
+    {% elif result == "다시 한 번 생각해보세요." %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">다시 한 번 생각해보세요.</h4><hr>
+        <p class="mb-0">
+        <a href="{% url 'main:about'%}" class="alert-link" style="float:right;">개념 다시 학습하기</a></p><br>
+    </div>
+    {% endif %}
+    
+    
+     <form name="form" style="font-size:20px;" method="POST" action="{% url 'problem:sns' number=3 %}">
+         {% csrf_token %}
+         <input type="submit"  class="btn btn-primary" name="option" value="v1">&nbsp;&nbsp;사실관계가 파악되지 않은 개인의 경험이다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v2">&nbsp;&nbsp;약국에 대한 입장이 아직 나오지 않은 상황이므로 섣부른 판단을 하지 않고 기다린다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v3">&nbsp;&nbsp;일단 의심되므로 oo약국은 가지 않는다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v4">&nbsp;&nbsp;영수증 등 증빙자료가 없으므로 믿을만 한지 의심해본다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v5">&nbsp;&nbsp;다른사람들에게 소문을 낸다는 댓글과 같이 사람들을 선동하지 않고 스스로 판단한다.<br><br>
+    </form>
+
+</body>
+</html>
+
+{% else %}
+    <script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

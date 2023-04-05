@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block title %}리터러슈 - Literacy3{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<style>
+    .custom{
+        width: 300px !important;
+        height: 300px !important;
+        font-size: 80pt !important;
+    }
+</style>
+<body>
+<div style="margin: 0 auto; width:50%; border: 3px">
+    {% if result == "정답입니다." %}
+    <div class="alert alert-dismissible alert-primary">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>정답입니다.</strong><hr><a>소셜 미디어 환경에서 소통 행위와 정보 생산 행위가 갖는 의미와 영향을 파악하는 소셜 미디어 리터러시 또한 디지털 리터러시의 영역입니다.</a><a href="/main" class="alert-link" style="float:right;">다른 문제 풀기</a><br><a>&nbsp;</a>
+    </div>
+    {% elif result == "다시 한 번 생각해보세요." %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>다시 한 번 생각해보세요.</strong><hr><a href="{% url 'main:about'%}" class="alert-link" style="float:right;">개념 다시 학습하기<br></a><a>&nbsp;</a>
+    </div>
+    {% endif %}
+
+    <div width="100" height="200"><br><br>
+        <div class="card text-white bg-info mb-3" style="max-width: 50rem;">
+            <div class="card-header">Literacy3</div>
+            <div class="card-body">
+                <h4 class="card-title">맞으면 O, 틀리면 X를 선택해주세요.</h4>
+                <p class="card-text">소셜 미디어 환경에서 소통 행위와 정보 생산 행위가 갖는 의미와 영향을 파악하는 소셜 미디어 리터러시는 디지털 리터러시의 영역이 아니다. </p>
+            </div>
+        </div><br>
+        <form method="POST" action="{% url 'problem:literacy' number=3 %}" style="text-align: center;">
+            {% csrf_token %}
+            <input type="submit" class="btn custom btn-outline-primary" value="  O  " name="answer">
+            <input type="submit" class="btn custom btn-outline-secondary" value="  X  " name="answer">
+        </form>
+    </div></div>
+</body>
+<br><br><br><br>
+{% else %}
+<script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'main/base.html' %}
+
+{% block title %}리터러슈 - Article1{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<style>
+    .custom{
+        width: 100% !important;
+    }
+
+</style>
+{% load static %}
+<body>
+    <script>
+        let status = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        
+        function input(id)
+        {
+            var a = 'a'+id;
+            var q = 'q'+id;
+            var question = document.getElementById(q);
+            var line = document.getElementById(id);
+            var answer = document.getElementById(a);
+            
+            if(status[id] == 0){
+                status[id] = 1;
+                question.setAttribute('class', 'btn btn-danger custom');
+                line.innerHTML = "<textarea class='form-control' rows='3' name='"+a+"' id='"+a+"'></textarea>";
+            }
+            else{
+                question.setAttribute('class', 'btn btn-outline-danger custom')
+                line.innerHTML = "";
+                status[id] = 0; 
+            }
+        };
+        
+        function check(a0)
+        {
+            var answer;
+            var m = ['m0', 'm6', 'm8', 'm9'];
+            var q = ['q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8','q9'];
+            for (var i of q){
+                question = document.getElementById(i);
+                question.setAttribute('class', 'btn btn-outline-danger custom');
+            }
+            q = ['q0', 'q6', 'q8', 'q9'];
+
+            for (var i of q){
+                question = document.getElementById(i);
+                question.setAttribute('class', 'btn btn-danger custom');
+            }
+            
+            var models = {'m0':"사실 관계가 확인되지 않은 추측성 제목을 사용하고 있다.",
+                          'm6':"사실 관계 확인 없이 주장하는 글을 근거로 작성하였다.",
+                          'm8':"근거 자료와 주제와의 명확한 인과관계가 제시되어 있지 않다. 근거 자료를 당사자의 출처로 다시 확인해보니 사실과 옳지 않았다.<img src='{% static 'img/article1-1.png' %}' width='300'>",
+                          'm9':"특정 집단의 의견만을 게재하여 편향되었을 가능성이 높다."};
+            for (var i in models){
+                document.getElementById(i).innerHTML 
+                    = "<br><div class='card text-white bg-info mb-3'>\
+                            <div class='card-header'>모범답안</div>\
+                            <div class='card-body'>\
+                                <p class='card-text'>"+models[i]+"</p>\
+                            </div>\
+                        </div>";
+            }    
+        }
+    </script>
+
+<br><br>
+<div class="" style="text-align:center;">
+    <img src="{% static 'img/article1.png' %}" alt="article" width="600" height="">
+</div>
+    
+<div class="d-grid gap-2 col-12 mx-auto">
+
+    <form method="POST" action="{% url 'problem:article' number=1 %}" style="text-align:center;" id="main">
+        {% csrf_token %}
+        <br>
+        
+        
+        <button type="button" class="btn btn-outline-danger custom" id="q0" onclick="input(0)">{{ items.0 }}</button><br><br>
+        <div id="0" class="form-group">
+            {% if a0 %}
+            <textarea class='form-control' rows='3' name='a0' id='a0'>{{ a0 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m0"></div>
+        <br>
+
+
+        <button type="button" class="btn btn-outline-danger custom" id="q1" onclick="input(1)">{{ items.1 }}</button><br><br>
+        <div id="1" class="form-group">
+            {% if a1 %}
+            <textarea class='form-control' rows='3' name='a1' id='a1'>{{ a1 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m1"></div>
+        <br>
+
+
+        <button type="button" class="btn btn-outline-danger custom" id="q2" onclick="input(2)">{{ items.2 }}</button><br><br>
+        <div id="2" class="form-group">
+            {% if a2 %}
+            <textarea class='form-control' rows='2' name='a2' id='a2'>{{ a2 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m2"></div>
+        <br>
+
+
+        <button type="button" class="btn btn-outline-danger custom" id="q3" onclick="input(3)">{{ items.3 }}</button><br><br>
+        <div id="3" class="form-group">
+            {% if a3 %}
+            <textarea class='form-control' rows='3' name='a3' id='a3'>{{ a3 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m3"></div>
+        <br>
+
+        <button type="button" class="btn btn-outline-danger custom" id="q4" onclick="input(4)">{{ items.4 }}</button><br><br>
+        <div id="4" class="form-group">
+            {% if a4 %}
+            <textarea class='form-control' rows='3' name='a4' id='a4'>{{ a4 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m4"></div>
+        <br>
+
+
+        <button type="button" class="btn btn-outline-danger custom" id="q5" onclick="input(5)">{{ items.5 }}</button><br><br>
+        <div id="5" class="form-group">
+            {% if a5 %}
+            <textarea class='form-control' rows='5' name='a5' id='a5'>{{ a5 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m5"></div>
+        <br>
+
+
+        <button type="button" class="btn btn-outline-danger custom" id="q6" onclick="input(6)">{{ items.6 }}</button><br><br>
+        <div id="6" class="form-group">
+            {% if a6 %}
+            <textarea class='form-control' rows='3' name='a6' id='a6'>{{ a6 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m6"></div>
+        <br>
+
+        <button type="button" class="btn btn-outline-danger custom" id="q7" onclick="input(7)">{{ items.7 }}</button><br><br>
+        <div id="7" class="form-group">
+            {% if a7 %}
+            <textarea class='form-control' rows='3' name='a7' id='a7'>{{ a7 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m7"></div>
+        <br>
+        
+        <button type="button" class="btn btn-outline-danger custom" id="q8" onclick="input(8)">{{ items.8 }}</button><br><br>
+        <div id="8" class="form-group">
+            {% if a8 %}
+            <textarea class='form-control' rows='3' name='a8' id='a8'>{{ a8 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m8"></div>
+        <br>
+        
+        <button type="button" class="btn btn-outline-danger custom" id="q9" onclick="input(9)">{{ items.9 }}</button><br><br>
+        <div id="9" class="form-group">
+            {% if a9 %}
+            <textarea class='form-control' rows='3' name='a9' id='a9'>{{ a9 }}</textarea>
+            {% endif %}
+        </div>
+        <div id="m9"></div>
+        <br>
+
+        <button type="button" class="btn btn-warning" style="float:right;"  onclick="check(a0)">예시 답안 보기</button><br><br>
+        <input type="submit" class="btn btn-primary" value="확인" style="float:right;" id="button">
+    </form>
+</div>
+</body>
+{% else %}
+    <script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

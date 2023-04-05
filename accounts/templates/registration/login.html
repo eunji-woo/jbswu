@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - 로그인{% endblock %}
+{% block content %}
+{% if user.is_active %}
+<h2>
+    <center>
+        <br><br>
+         Welcome, {{user.username}}<br>
+        <a href="{% url 'auth:logout' %}">Logout</a>
+        <br><br><br><br>
+    </center>
+</h2>
+
+{% else %}
+<div class="container my-3">
+    <form method="post" class="post-form" action="{% url 'auth:login' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <center>
+        <div class="w-50 form-group">
+            <input type="text" class="form-control" name="username" id="username" placeholder="ID"
+                   value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <br>
+        <div class="w-50 form-group">
+            <input type="password" class="form-control" name="password" id="password" placeholder="PW"
+                   value="{{ form.password.value|default_if_none:'' }}">
+        </div>
+        <br>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        
+        <button type="submit" class="w-50 btn btn-primary">Login</button>
+        <br><br>
+        
+        </center>
+    </form>
+    <center>
+    <button class="w-50 btn btn-secondary" onclick="location.href='/accounts/signup'">Sign up</button>
+    </center>
+</div>
+{% endif %}
+{% endblock %}

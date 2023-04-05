@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - Community3{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Community 문제 Num.03</title>
+</head>
+<body>
+    <h1>Community 문제 Num.03</h1><br><hr>
+    <p style="font-size:30px">유명 주식 카페에 올라온 글입니다.</p><br>
+
+    <div class="" style="text-align:center;">
+        <img src="{% static 'img/comm3.jpg' %}" alt="community" width="800" height="">
+    </div>
+    <br><hr>
+    
+
+    {% if result == "정답입니다." %}
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">정답입니다.</h4><hr>
+        <p class="mb-0">해당 문제에 작성된 주식투자 성공 방법은 리터러시 교육용으로 작성된 내용으로 실제 주식투자에 참고하지 마시기 바랍니다.<br>
+        <a href="/main" class="alert-link">다른 문제 풀기</a></p>
+    </div>
+    
+    {% elif result == "다시 한 번 생각해보세요." %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">다시 한 번 생각해보세요.</h4><hr>
+        <p class="mb-0"><br>
+        <a href="{% url 'main:about' %}" class="alert-link">개념 다시 학습하기</a></p>
+    </div>
+    {% endif %}
+    
+    
+     <form name="form" style="font-size:20px;" method="POST" action="{% url 'problem:community' number=3 %}">
+         {% csrf_token %}
+         <input type="submit" class="btn btn-primary" name="option" value="v1">&nbsp;글의 작성자가 아는 재태크 전문가의 이력이 정확하지 않으므로 신뢰하지 않는다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v2">&nbsp;2시간안에 삭제되는 중요한 정보로 일단 글을 믿고 주식투자에 참고한다. <br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v3">&nbsp;주식 성공하는 비결의 팁 많음으로 다른 주식 투자 방법을 찾아보지 않는다.<br><br>
+         <input type="submit" class="btn btn-primary" name="option" value="v4">&nbsp;주식을 하지 않지만 주식을 하는 친구에게 공유해 준다.<br><br>
+    </form>
+
+</body>
+</html>
+{% else %}
+    <script>
+        alert("로그인 후 문제를 풀 수 있습니다.");
+        history.go(-1);
+    </script>
+{% endif %}
+{% endblock %}

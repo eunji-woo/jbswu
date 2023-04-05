@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %}리터러슈 - Q&A 글쓰기{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>작성 페이지</title>
+</head>
+<body>
+    <h1>QnA게시판 | 질문등록</h1>
+    <h6>*해당 질문에 대한 답변은 적으신 이메일로 회신해드립니다.</h6>
+    <hr>
+    
+    <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data"><br>
+        {% csrf_token %}
+        {{ create_form.as_p }}<br>
+        <input type="submit" value = "제출">
+    </form>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}리터러슈{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/prism-okaidia.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/custom.min.css' %}">
+
+</head>
+<body>
+    
+<style>
+    .custom2{
+        display:inline !important;
+    }
+
+</style>
+<div class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="navbar">
+    <div class="container-fluid">
+        <a href="{% url 'main:index' %}" class="navbar-brand">리터러슈</a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:about' %}">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Question <span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="download">
+                            <a class="dropdown-item" href="{% url 'faq:index' %}">FAQ</a>
+                            <a class="dropdown-item" href="{% url 'writepage' %}">Q&A</a>
+                        </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'problem:index' %}">Problem </a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav ms-md-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="download">{{ user }}<span class="caret"></span></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'accounts:editinfo' %}">회원정보</a>
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}">로그아웃</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">계정<span class="caret"></span></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'auth:login' %}">로그인</a>
+                            <a class="dropdown-item" href="{% url 'accounts:signup' %}">회원가입</a>
+                        </div>
+                    </li>
+                {% endif %}
+                <form action="/qna/writepage" method="get" style="text-align:right;">
+                    <input type="text" name="q" value="{{ q }}" class="input-text">
+                    <input type="submit" value="검색" class="custom2 btn btn-sm btn-outline-primary">
+                </form>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class ="container">
+    <div class="row">
+        <div class="col-lg" id="main.div">
+            <center><img src="{% static 'main/img/swucream.png' %}" style="max-width:15%; height:auto;"></center>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg" id="main.div">
+            {% block content %}
+            <h5>Content - block content end block을 통해서 작성하세요</h5>
+            {% endblock %}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg" id="main.div">
+            <center>
+                <a href="#" target="_blank">
+                    <img src="{% static 'main/img/swucream_ad.png' %}" style="max-width:35%; height:auto;">
+                </a>
+            </center>
+        </div>
+    </div>
+    
+     <div class="row">
+        <div class="col-lg" id="main.div">
+            <center>
+                <a href="https://securecoding.software/" target="_blank">
+                    <img src="{% static 'main/img/sgd.png' %}" style="max-width:35%; height:auto;">
+                </a>
+            </center>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg">
+            <center>
+            <table width=500px>
+                <tr>
+                    <td><center><a href="https://www.mois.go.kr/" target="_blank"><img src="{% static 'main/img/mois_logo.png' %}" style="max-width:100%; height:auto;" ></a></center></td>
+                    <td><center><a href="https://www.kisa.or.kr/" target="_blank"><img src="{% static 'main/img/kisa_logo.png' %}" style="max-width:100%; height:auto;"></a></center></td>
+                    <td><center><a href="https://kiisc.or.kr/" target="_blank"><img src="{% static 'main/img/kiisc_logo.png' %}" style="max-width:100%; height:auto;"></a></center></td>
+                </tr>
+            </table>
+            </center>
+        </div>
+    </div>
+    
+    <br><br><br><br><br>
+    
+</div>
+
+    <script src="{% static 'main/js/jquery.min.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'main/js/prism.js' %}"></script>
+    <script src="{% static 'main/js/custom.js' %}"></script>
+
+</body>
+</html>
